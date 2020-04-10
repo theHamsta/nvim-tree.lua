@@ -29,6 +29,7 @@ endif
 " au WinEnter * lua require'tree'.replace_tree()
 
 command! LuaTreeToggle lua require'tree'.toggle()
+command! LuaTreeShow lua require'tree'.show()
 command! LuaTreeRefresh lua require'tree'.refresh()
 command! LuaTreeFindFile lua require'tree'.find()
 

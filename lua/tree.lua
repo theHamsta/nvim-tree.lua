@@ -35,6 +35,14 @@ require 'lib/colors'.init_colors()
 
 init_tree()
 
+local function show()
+    if is_win_open() ~= true then
+        open()
+        update_view()
+        set_mappings()
+    end
+end
+
 local function toggle()
     if is_win_open() == true then
         local wins = api.nvim_list_wins()
@@ -182,6 +190,7 @@ end
 
 return {
     toggle = toggle;
+    show = show;
     open_file = open_file;
     edit_file = edit_file;
     refresh = refresh;
