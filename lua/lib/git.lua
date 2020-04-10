@@ -30,8 +30,7 @@ end
 
 local function is_folder_dirty(relpath)
     for _, status in pairs(GIT_STATUS) do
-        local match_path = relpath:gsub('(%-)', '%%-')
-        if string.match(status, match_path) ~= nil then return true end
+        if string.match(status, relpath) ~= nil then return true end
     end
 end
 

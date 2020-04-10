@@ -26,13 +26,13 @@ if not MACOS and api.nvim_call_function('exists', { 'g:lua_tree_ignore' }) == 1 
     local ignore_patterns = api.nvim_get_var('lua_tree_ignore')
     if type(ignore_patterns) == 'table' then
         for _, pattern in pairs(ignore_patterns) do
-            IGNORE_LIST = IGNORE_LIST .. '--ignore='..pattern..' '
+            IGNORE_LIST = IGNORE_LIST .. '|'..pattern..''
         end
     end
 end
 
 local function list_dirs(path)
-    local ls_cmd = 'ls -A '..IGNORE_LIST..path
+    local ls_cmd = 'exa --git-ignore -I="'..IGNORE_LIST..'" '..path
     return syslist(ls_cmd)
 end
 
