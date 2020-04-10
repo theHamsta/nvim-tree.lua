@@ -54,6 +54,7 @@ local function toggle()
     end
 end
 
+
 local MOVE_TO = 'l'
 if api.nvim_call_function('exists', { 'g:lua_tree_side' }) == 1 then
     if api.nvim_get_var('lua_tree_side') == 'right' then
@@ -176,7 +177,9 @@ local function check_buffer_and_open()
 end
 
 local function find()
-    local line = find_file(api.nvim_buf_get_name(0))
+    set_root_path(vim.fn.FindRootDirectory() .. '/')
+    refresh()
+    local line = find_file(vim.fn.expand("%:p"))
     if not line then return end
 
     update_view()
