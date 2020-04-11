@@ -49,7 +49,7 @@ local function is_executable(name)
 end
 
 local function dev_icons(pathname, isdir, open)
-    if isdir == true or is_special(pathname) == true or is_executable(pathname) == true or is_pic(pathname) == true then
+    if isdir == true --[[or is_special(pathname) == true]] or is_executable(pathname) == true or is_pic(pathname) == true then
         return default_icons(pathname, isdir, open)
     end
 
