@@ -54,7 +54,7 @@ local function dev_icons(pathname, isdir, open)
     end
 
     local icon = api.nvim_call_function('WebDevIconsGetFileTypeSymbol', { pathname, isdir })
-    if icon == "" then return "" end
+    --if icon == "" then return "" end
     return icon  .. " "
 end
 
