@@ -28,6 +28,7 @@ local colors = {
 }
 
 local keybindings = get('lua_tree_bindings', {});
+local use_wildignore = get('lua_tree_use_wildignore', nil)
 
 local bindings = {
     edit = keybindings.edit or '<CR>',
@@ -45,6 +46,7 @@ return {
     SHOW_FILE_ICON = SHOW_FILE_ICON,
     SHOW_GIT_ICON = SHOW_GIT_ICON,
     colors = colors,
-    bindings = bindings
+    bindings = bindings,
+    use_wildignore = use_wildignore,
 }
 

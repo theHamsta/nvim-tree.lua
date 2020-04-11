@@ -4,6 +4,7 @@ local function syslist(v) return api.nvim_call_function('systemlist', { v }) end
 
 local get_git_attr = require 'lib/git'.get_git_attr
 local fs = require 'lib/fs'
+local config = require 'lib/config'
 local is_dir = fs.is_dir
 local is_symlink = fs.is_symlink
 local get_cwd = fs.get_cwd
@@ -22,13 +23,15 @@ local IGNORE_LIST = ""
 local MACOS = api.nvim_call_function('has', { 'macunix' }) == 1
 
 -- --ignore does not work with mac ls
-if not MACOS and api.nvim_call_function('exists', { 'g:lua_tree_ignore' }) == 1 then
+if not MACOS then
+  if api.nvim_call_function('exists', { 'g:lua_tree_ignore' }) == 1 then
     local ignore_patterns = api.nvim_get_var('lua_tree_ignore')
     if type(ignore_patterns) == 'table' then
         for _, pattern in pairs(ignore_patterns) do
             IGNORE_LIST = IGNORE_LIST .. '|'..pattern..''
         end
     end
+  end
 end
 
 local function list_dirs(path)
