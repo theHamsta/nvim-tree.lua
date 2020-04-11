@@ -179,7 +179,7 @@ end
 local function find()
     local maybe_new_root = vim.fn.FindRootDirectory() .. '/'
     local path = vim.fn.expand("%:p")
-    if path and not string.find(path, "term://") and not string.find(path, "LuaTree") then
+    if path and not string.find(path, "term://") and not string.find(path, "LuaTree") and not string.find(path, ".git") and maybe_new_root ~= '/' then
         set_root_path(maybe_new_root)
         refresh()
         local line = find_file(path)
