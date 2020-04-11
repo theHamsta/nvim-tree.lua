@@ -16,6 +16,7 @@ local init_tree = state.init_tree
 local open_dir = state.open_dir
 local refresh_tree = state.refresh_tree
 local set_root_path = state.set_root_path
+local get_root_path = state.get_root_path
 local find_file = state.find_file
 
 local winutils = require 'lib/winutils'
@@ -180,8 +181,12 @@ local function find()
     local maybe_new_root = vim.fn.FindRootDirectory() .. '/'
     local path = vim.fn.expand("%:p")
     if path and not string.find(path, "term://") and not string.find(path, "LuaTree") and not string.find(path, ".git") and maybe_new_root ~= '/' then
-        set_root_path(maybe_new_root)
-        refresh()
+        if get_root_path() ~= maybe_new_root then
+            set_root_path(maybe_new_root)
+            force_refresh_git()
+            init_tree(maybe_new_root)
+        end
+        update_view()
         local line = find_file(path)
         if not line then return end
 

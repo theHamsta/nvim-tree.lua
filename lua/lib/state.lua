@@ -16,6 +16,10 @@ local function set_root_path(path)
     ROOT_PATH = path
 end
 
+local function get_root_path(path)
+    return ROOT_PATH
+end
+
 local Tree = {}
 
 local IGNORE_LIST = ""
@@ -186,6 +190,7 @@ return {
     refresh_tree = refresh_tree;
     open_dir = open_dir;
     set_root_path = set_root_path;
+    get_root_path = get_root_path;
     get_cwd = get_cwd;
     find_file = find_file;
 }
