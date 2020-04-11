@@ -177,16 +177,20 @@ local function check_buffer_and_open()
 end
 
 local function find()
-    set_root_path(vim.fn.FindRootDirectory() .. '/')
-    refresh()
-    local line = find_file(vim.fn.expand("%:p"))
-    if not line then return end
+    local maybe_new_root = vim.fn.FindRootDirectory() .. '/'
+    local path = vim.fn.expand("%:p")
+    if path and not string.find(path, "term://") then
+        set_root_path(maybe_new_root)
+        refresh()
+        local line = find_file(path)
+        if not line then return end
 
-    update_view()
+        update_view()
 
-    local win = get_win()
-    if win then 
-        api.nvim_win_set_cursor(win, { line, 0 })
+        local win = get_win()
+        if win then 
+            api.nvim_win_set_cursor(win, { line, 0 })
+        end
     end
 
 end
