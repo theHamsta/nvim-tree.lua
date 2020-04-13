@@ -81,7 +81,13 @@ local function format_tree(tree)
         elseif node.icon == true then
             icon = get_icon(node.path .. node.name, node.dir, node.open)
         end
-        dirs[i] = padding ..  icon .. git .. name
+        --local suffix
+        --if node.dir then
+            --suffix = '' -- .. #vim.fn.systemlist('ls ' .. node.path .. node.name)
+        --else 
+        suffix = ''
+        --end
+        dirs[i] = padding ..  icon .. git .. name .. suffix
     end
 
     return dirs
@@ -126,7 +132,8 @@ local function highlight_line(buffer)
                 text_start = text_start + 4
                 highlight('LuaTreeFolderIcon', line, 0, text_start)
             end
-            highlight('LuaTreeFolderName', line, text_start + gitlen, -1)
+            highlight('LuaTreeFolderName', line, text_start + gitlen, text_start + gitlen + string.len(node.name))
+            highlight('Comment', line, text_start + gitlen + string.len(node.name), -1)
 
         elseif node.link == true then
             highlight('LuaTreeSymlink', line, 0, -1)
