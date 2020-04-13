@@ -32,10 +32,15 @@ if not MACOS then
     local ignore_patterns = api.nvim_get_var('lua_tree_ignore')
     if type(ignore_patterns) == 'table' then
         for _, pattern in pairs(ignore_patterns) do
-            IGNORE_LIST = IGNORE_LIST .. '|'..pattern..''
+            IGNORE_LIST = IGNORE_LIST .. '|'..pattern
         end
     end
   end
+  local wildignore = vim.api.nvim_get_option("wildignore")
+  for str in string.gmatch(wildignore, "([^,]+)") do
+    IGNORE_LIST = IGNORE_LIST..'|'..str
+  end
+
 end
 
 local function list_dirs(path)
